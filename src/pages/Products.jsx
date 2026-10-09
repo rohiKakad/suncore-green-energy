@@ -69,6 +69,18 @@ const systemPackages = [
   { size: '10 kW', area: '~100 sq ft', units: '40–50 units/day', price: '₹5,20,000', subsidy: 'Commercial', ideal: 'Small business / office' },
 ]
 
+// Materials used in every Suncore system
+const materials = [
+  { icon: '🏗️', title: 'Mounting Structure', brands: 'Hot-Dip Galvanised (HDGI) Steel',
+    desc: 'Rust-resistant hot-dip galvanised GI structure, designed for wind load and long life on RCC terraces and sheds.' },
+  { icon: '🔌', title: 'DC & AC Cables',     brands: 'Polycab / V-Guard',
+    desc: 'UV-resistant solar DC cables and copper AC cables from trusted brands for safe, low-loss power flow.' },
+  { icon: '⚡', title: 'Solar Inverter',     brands: 'Polycab / Sungrow',
+    desc: 'Efficient grid-tie inverters with remote monitoring, so you can track generation from your phone.' },
+  { icon: '☀️', title: 'Solar Panels',       brands: 'Waaree / Adani / Tata & more',
+    desc: 'High-efficiency TOPCon and Mono PERC modules with 25+ years performance warranty.' },
+]
+
 // Our installation photos – image files live in public/installations/.
 // Add `location: 'Baner, Pune'` etc. to show a location under the title.
 const installations = [
@@ -224,8 +236,30 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Installation Gallery */}
+      {/* Materials */}
       <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="section-title">Quality Materials We Use</h2>
+            <p className="section-subtitle">Every system is built with branded, long-lasting components</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {materials.map(m => (
+              <div key={m.title} className="card p-6 text-left">
+                <div className="text-4xl mb-3">{m.icon}</div>
+                <h3 className="font-bold text-lg mb-1" style={{ color: '#1E5C8E' }}>{m.title}</h3>
+                <div className="inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3" style={{ background: '#FFFBEB', color: '#A66405' }}>
+                  {m.brands}
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed">{m.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Installation Gallery */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="section-title">Our Recent Installations</h2>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LogoMark } from '../components/Logo'
+import InstagramIcon from '../components/InstagramIcon'
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../contact'
 import { useSeo } from '../seo'
 
 const team = [
@@ -199,6 +201,12 @@ export default function AboutUs() {
                     <span style={{ color: '#1E5C8E' }}>✉️</span>
                     <a href="mailto:info@suncoregreen.com" className="text-gray-700 transition-colors hover:underline">
                       info@suncoregreen.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <InstagramIcon className="w-5 h-5 text-[#DD2A7B]" />
+                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-gray-700 transition-colors hover:underline">
+                      @{INSTAGRAM_HANDLE}
                     </a>
                   </div>
                   <div className="flex items-center gap-3">

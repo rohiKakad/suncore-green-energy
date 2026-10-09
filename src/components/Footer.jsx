@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
+import InstagramIcon from './InstagramIcon'
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../contact'
 
 export default function Footer() {
   return (
@@ -17,6 +19,14 @@ export default function Footer() {
             <p className="text-sm text-gray-400 leading-relaxed mt-2">
               Empowering Pune with clean, affordable solar energy. We work with leading brands like Waaree, Adani, Tata, Sudarshan Saur &amp; Vikram Solar.
             </p>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition-opacity"
+              style={{ background: 'linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)' }}
+            >
+              <InstagramIcon className="w-4 h-4" /> Follow us on Instagram
+            </a>
           </div>
 
           {/* Quick Links */}
@@ -63,12 +73,16 @@ export default function Footer() {
                 <span style={{ color: '#F5A623' }}>✉️</span>
                 <a href="mailto:info@suncoregreen.com" className="hover:text-sun-400 transition-colors">info@suncoregreen.com</a>
               </li>
+              <li className="flex items-center gap-2">
+                <InstagramIcon className="w-4 h-4 text-sun-400" />
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sun-400 transition-colors">@{INSTAGRAM_HANDLE}</a>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-6 pb-20 md:pb-0 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Suncore Green Energy All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Suncore Green Energy. All rights reserved.</p>
           <p>Made with ☀️ in Pune, India</p>
         </div>
       </div>
