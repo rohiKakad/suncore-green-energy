@@ -1,20 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { LogoMark } from '../components/Logo'
+import { useSeo } from '../seo'
 
 const team = [
-  { name: 'Rohidas Kakad',    role: 'Founder & CEO',        exp: '15+ years in renewable energy',   avatar: 'SP' },
-  { name: 'Kavita Desai',   role: 'Head of Operations',   exp: '10+ years in project management', avatar: 'KD' },
-  { name: 'Rahul Mane',     role: 'Lead Solar Engineer',  exp: '12+ years in solar installation', avatar: 'RM' },
-  { name: 'Pooja Kulkarni', role: 'Customer Relations',   exp: '8+ years in customer success',    avatar: 'PK' },
+  { name: 'Rohidas Kakad',  role: 'Founder & CEO',        exp: '8+ years in renewable energy',    avatar: 'RK' },
+  { name: 'Kisan Erande',   role: 'Director',             exp: '5+ years in solar projects',       avatar: 'KE' },
+  { name: 'Kiran Sagar',    role: 'Lead Solar Engineer',  exp: '4+ years in solar installation',  avatar: 'KS' },
 ]
 
 const milestones = [
-  { year: '2015', event: 'Suncore Green Energy founded in Pune' },
-  { year: '2017', event: 'Became authorized Waaree dealer for Pune region' },
-  { year: '2019', event: 'Crossed 100 successful installations' },
-  { year: '2020', event: 'Added Adani Solar to our product portfolio' },
-  { year: '2022', event: 'Partnered with Tata Power Solar; crossed 300 installations' },
-  { year: '2024', event: 'Crossed 500 installations & 10 MW capacity milestone' },
+  { year: '2023', event: 'Suncore Green Energy founded in Pune – our solar journey begins' },
+  { year: '2023', event: 'Completed our first rooftop solar installations for Pune homes' },
+  { year: '2024', event: 'Started PM Surya Ghar Yojana subsidy assistance for our customers' },
+  { year: '2024', event: 'Expanded our range – Waaree, Adani, Tata, Sudarshan Saur & Vikram Solar' },
+  { year: '2025', event: 'Opened our Sangamner office to serve Ahilyanagar district' },
+  { year: '2026', event: 'Serving homes, housing societies & businesses across Pune and Ahilyanagar' },
 ]
 
 const values = [
@@ -25,15 +26,20 @@ const values = [
 ]
 
 export default function AboutUs() {
+  useSeo({
+    title: 'About Us – Trusted Solar Company in Pune | Suncore Green Energy',
+    description: 'Suncore Green Energy has completed 100+ rooftop solar installations and 1000 KW+ of capacity across Pune and Sangamner. Meet our team and see our offices.',
+    path: '/about',
+  })
   return (
     <div className="pt-16">
 
       {/* Hero */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg,#6B8E23,#3A5012)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg,#1A8BD4,#1A4E9C)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">About Suncore Green Energy</h1>
           <p className="text-green-100 text-lg max-w-2xl mx-auto">
-            Pune's most trusted solar energy company, empowering homes and businesses with clean, affordable solar power since 2015.
+            Pune's most trusted solar energy company, empowering homes and businesses with clean, affordable solar power since 2023.
           </p>
         </div>
       </section>
@@ -45,19 +51,19 @@ export default function AboutUs() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1E5C8E' }}>Our Story</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Suncore Green Energy was founded in 2015 with a simple mission: make solar energy accessible and affordable for every home and business in Pune. What started as a small team of passionate engineers has grown into Pune's most trusted solar solutions provider.
+                Suncore Green Energy was founded in 2023 with a simple mission: make solar energy accessible and affordable for every home and business in Pune. What started as a small team of passionate engineers has grown into Pune's most trusted solar solutions provider.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                We are proud authorized dealers of India's top three solar brands – <strong>Waaree, Adani, and Tata</strong> – ensuring our customers get only the best quality panels backed by manufacturer warranties.
+                We work with India's leading solar brands – <strong>Waaree, Adani, Tata, Sudarshan Saur, Vikram Solar</strong> and more – so our customers get the best quality panels backed by manufacturer warranties.
               </p>
               <p className="text-gray-600 leading-relaxed mb-6">
-                With 500+ successful installations and 10 MW+ of solar capacity deployed across Pune, we have helped hundreds of families and businesses slash their electricity bills while contributing to a cleaner environment.
+                With 100+ successful installations and 1000 KW+ of solar capacity deployed across Pune, we have helped hundreds of families and businesses slash their electricity bills while contributing to a cleaner environment.
               </p>
               <div className="flex flex-wrap gap-4">
                 {[
-                  { val: '500+',  label: 'Installations', bg: '#EBF4FB', color: '#1E5C8E' },
-                  { val: '10 MW+',label: 'Capacity',      bg: '#F4F7EC', color: '#6B8E23' },
-                  { val: '9 Yrs', label: 'Experience',    bg: '#FFFBEB', color: '#C97D08' },
+                  { val: '100+',  label: 'Installations', bg: '#EBF4FB', color: '#1E5C8E' },
+                  { val: '1000 KW+',label: 'Capacity',      bg: '#E6F4FC', color: '#1A8BD4' },
+                  { val: '2023',  label: 'Established',    bg: '#FFFBEB', color: '#C97D08' },
                 ].map(s => (
                   <div key={s.label} className="rounded-xl px-5 py-3 text-center" style={{ background: s.bg }}>
                     <div className="text-2xl font-bold" style={{ color: s.color }}>{s.val}</div>
@@ -67,8 +73,10 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="rounded-3xl p-10 text-white text-center" style={{ background: 'linear-gradient(135deg,#F5A623,#6B8E23)' }}>
-              <div className="text-8xl mb-6">☀️</div>
+            <div className="rounded-3xl p-10 text-white text-center" style={{ background: 'linear-gradient(135deg,#F5A623,#1A8BD4)' }}>
+              <div className="inline-flex items-center justify-center bg-white rounded-full w-32 h-32 mb-6 shadow-lg">
+                <LogoMark size={88} />
+              </div>
               <h3 className="text-2xl font-bold mb-3">Our Mission</h3>
               <p className="text-white/90 leading-relaxed">
                 To accelerate Pune's transition to clean solar energy by providing affordable, high-quality solar solutions with exceptional service and support.
@@ -126,7 +134,7 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="section-title">Meet Our Team</h2>
           <p className="section-subtitle">Experienced professionals dedicated to your solar journey</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {team.map((member, i) => (
               <div key={i} className="card p-6 text-center">
                 <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4"
@@ -146,21 +154,35 @@ export default function AboutUs() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="section-title">Find Us in Pune</h2>
-            <p className="section-subtitle">Visit our office or reach out – we're always happy to help</p>
+            <h2 className="section-title">Find Us in Pune &amp; Sangamner</h2>
+            <p className="section-subtitle">Visit our offices or reach out – we're always happy to help</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div className="space-y-6">
-              <div className="card p-6">
-                <h3 className="font-bold text-gray-800 text-lg mb-4 flex items-center gap-2">
-                  <span style={{ color: '#F5A623' }}>📍</span> Our Office
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Shop No. 12, Sai Complex,<br />
-                  Karve Road, Kothrud,<br />
-                  Pune – 411038,<br />
-                  Maharashtra, India
-                </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-800 text-lg mb-4 flex items-center gap-2">
+                    <span style={{ color: '#F5A623' }}>📍</span> Pune Office
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Office 1305/06, Maruti Millennium Tower,<br />
+                    Pune–Bangalore Highway, Pashan Exit,<br />
+                    Baner Annex, Baner,<br />
+                    Pune – 411045,<br />
+                    Maharashtra, India
+                  </p>
+                </div>
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-800 text-lg mb-4 flex items-center gap-2">
+                    <span style={{ color: '#F5A623' }}>📍</span> Sangamner Office
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    1st Floor, Vishwkarma Building,<br />
+                    Opp. Main Gate Market Yard,<br />
+                    Sangamner, Ahilyanagar – 422605,<br />
+                    Maharashtra, India
+                  </p>
+                </div>
               </div>
               <div className="card p-6">
                 <h3 className="font-bold text-gray-800 text-lg mb-4 flex items-center gap-2">
@@ -168,9 +190,9 @@ export default function AboutUs() {
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <span style={{ color: '#6B8E23' }}>📱</span>
-                    <a href="tel:9637324922" className="text-gray-700 font-medium transition-colors hover:underline" style={{ color: '#1E5C8E' }}>
-                      +91 96373 24922
+                    <span style={{ color: '#1A8BD4' }}>📱</span>
+                    <a href="tel:9096900576" className="text-gray-700 font-medium transition-colors hover:underline" style={{ color: '#1E5C8E' }}>
+                      +91 90969 00576
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
@@ -199,28 +221,40 @@ export default function AboutUs() {
               </div>
             </div>
 
-            {/* Map */}
+            {/* Maps */}
+            <div className="space-y-6">
             <div className="card overflow-hidden" style={{ minHeight: '380px' }}>
               <iframe
-                title="Suncore Green Energy – Kothrud, Pune"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5!2d73.8067!3d18.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0xa0a0a0a0a0a0a0a0!2sKothrud%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1"
+                title="Suncore Green Energy – Baner, Pune"
+                src="https://maps.google.com/maps?q=Maruti%20Millennium%20Tower%2C%20Baner%2C%20Pune%20411045&output=embed"
                 width="100%" height="380"
                 style={{ border: 0 }}
                 allowFullScreen="" loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
+            <div className="card overflow-hidden" style={{ minHeight: '380px' }}>
+              <iframe
+                title="Suncore Green Energy – Sangamner"
+                src="https://maps.google.com/maps?q=Market%20Yard%20Main%20Gate%2C%20Sangamner%2C%20Maharashtra%20422605&output=embed"
+                width="100%" height="380"
+                style={{ border: 0 }}
+                allowFullScreen="" loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 text-white text-center" style={{ background: 'linear-gradient(90deg,#6B8E23,#1E5C8E)' }}>
+      <section className="py-16 text-white text-center" style={{ background: 'linear-gradient(90deg,#1A8BD4,#1E5C8E)' }}>
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Let's Build a Greener Pune Together</h2>
-          <p className="text-white/90 mb-8">Join 500+ happy customers who trust Suncore for their solar needs.</p>
+          <p className="text-white/90 mb-8">Join 100+ happy customers who trust Suncore for their solar needs.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:9637324922" className="font-bold px-8 py-3 rounded-lg shadow-lg transition-colors" style={{ background: '#F5A623', color: '#fff' }}>
+            <a href="tel:9096900576" className="font-bold px-8 py-3 rounded-lg shadow-lg transition-colors" style={{ background: '#F5A623', color: '#fff' }}>
               📞 Call Us Now
             </a>
             <Link to="/products" className="border-2 border-white text-white font-bold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors">

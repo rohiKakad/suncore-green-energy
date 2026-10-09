@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import QuoteForm from '../components/QuoteForm'
+import SavingsCalculator from '../components/SavingsCalculator'
+import SolarLoans from '../components/SolarLoans'
+import { useSeo } from '../seo'
 
 // Brand palette (from logo)
 // Sun orange  : #F5A623
 // Brand blue  : #1E5C8E
-// Olive green : #6B8E23
+// Panel blue  : #1A8BD4
 
 const stats = [
-  { value: '500+',  label: 'Installations Done' },
-  { value: '10 MW+', label: 'Solar Capacity Installed' },
-  { value: '3',     label: 'Premium Brands' },
+  { value: '100+',  label: 'Installations Done' },
+  { value: '1000 KW+', label: 'Solar Capacity Installed' },
+  { value: '5+',    label: 'Top Solar Brands' },
   { value: '98%',   label: 'Customer Satisfaction' },
 ]
 
@@ -22,10 +26,18 @@ const testimonials = [
   { name: 'Meera Nair',      location: 'Viman Nagar, Pune',rating: 5, avatar: 'MN', text: 'SunCore helped us go completely off-grid with a battery backup system. No more power cuts! The team is knowledgeable and trustworthy.' },
 ]
 
+const steps = [
+  { icon: '📋', title: 'Free Consultation', desc: 'Share your bill and requirement – we suggest the right system size.' },
+  { icon: '📐', title: 'Site Survey & Design', desc: 'Our engineer visits your rooftop and designs a shadow-free layout.' },
+  { icon: '🔧', title: 'Installation', desc: 'Certified team installs panels, inverter and wiring in 1–3 days.' },
+  { icon: '⚡', title: 'Net Metering', desc: 'We handle MSEDCL net-meter application and grid connection.' },
+  { icon: '💰', title: 'Subsidy in Your Account', desc: 'We file your PM Surya Ghar claim – subsidy is credited directly to you.' },
+]
+
 const faqs = [
-  { q: 'How much does a solar panel system cost in Pune?',           a: 'A residential solar system in Pune typically costs between ₹60,000 to ₹3,00,000 depending on capacity (1kW–10kW). Government subsidies under PM Surya Ghar Yojana can reduce costs by 20–40%.' },
+  { q: 'How much does a solar panel system cost in Pune?',           a: 'A residential solar system in Pune typically costs between ₹75,000 to ₹5,20,000 depending on capacity (1kW–10kW). Government subsidies under PM Surya Ghar Yojana can reduce costs by 20–40%.' },
   { q: 'What is the payback period for solar panels?',               a: 'Most residential solar systems in Pune have a payback period of 4–6 years. After that, you enjoy virtually free electricity for the remaining 20+ years of the panel\'s life.' },
-  { q: 'Which solar panel brand is best – Waaree, Adani, or Tata?', a: 'All three are excellent Indian brands with strong warranties. Waaree is known for high efficiency, Adani for reliability and scale, and Tata for premium build quality. Our experts help you choose based on your budget and requirements.' },
+  { q: 'Which solar panel brand is best – Waaree, Adani, Tata or Vikram?', a: 'We work with leading Indian brands like Waaree, Adani, Tata, Sudarshan Saur and Vikram Solar – all with strong warranties. Waaree is known for high efficiency, Adani for reliability and scale, Tata for premium build quality, and Vikram for value. Our experts help you choose based on your budget and requirements.' },
   { q: 'Is my rooftop suitable for solar installation?',             a: 'Most rooftops in Pune are suitable. We need a shadow-free area of about 10 sq. ft. per 100W of capacity. We offer a free site survey to assess your rooftop.' },
   { q: 'What government subsidies are available for solar in Pune?', a: 'Under PM Surya Ghar Yojana, you can get up to ₹78,000 subsidy for a 3kW system. MSEDCL also offers net metering so you can sell excess power back to the grid.' },
   { q: 'How long does solar panel installation take?',               a: 'A typical residential installation takes 1–3 days. The entire process including survey, design, installation, and grid connection takes about 2–4 weeks.' },
@@ -43,6 +55,13 @@ function StarRating({ rating }) {
       ))}
     </div>
   )
+}
+
+// FAQ structured data so Google can show these questions in search results
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 }
 
 function FAQItem({ q, a }) {
@@ -72,6 +91,18 @@ function FAQItem({ q, a }) {
 }
 
 export default function Home() {
+  useSeo({
+    title: 'Rooftop Solar Panels in Pune & Sangamner | Suncore Green Energy',
+    description: 'Rooftop solar installation in Pune & Sangamner with Waaree, Adani & Tata panels. Up to ₹78,000 PM Surya Ghar subsidy, free site survey, net metering & EMI options.',
+    path: '/',
+  })
+  const { hash, key } = useLocation()
+
+  // Scroll to the quote form when arriving via /#quote
+  useEffect(() => {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' })
+  }, [hash, key])
+
   return (
     <div className="pt-16">
 
@@ -83,11 +114,12 @@ export default function Home() {
         {/* decorative blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full opacity-10" style={{ background: '#F5A623' }}></div>
-          <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#6B8E23' }}></div>
+          <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#1A8BD4' }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="max-w-3xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
             <div
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium mb-6"
               style={{ background: 'rgba(245,166,35,0.2)', border: '1px solid rgba(245,166,35,0.4)' }}
@@ -102,7 +134,7 @@ export default function Home() {
             </h1>
 
             <p className="text-lg md:text-xl text-white/85 mb-8 leading-relaxed">
-              Authorized dealer of <strong>Waaree, Adani &amp; Tata</strong> solar panels.
+              We work with leading brands like <strong>Waaree, Adani, Tata, Sudarshan Saur &amp; Vikram Solar</strong>.
               Save up to 90% on electricity bills with premium solar solutions for homes and businesses in Pune.
             </p>
 
@@ -117,12 +149,23 @@ export default function Home() {
                 Explore Products
               </Link>
               <a
-                href="tel:9637324922"
+                href="tel:9096900576"
                 className="border-2 border-white text-white font-bold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors"
               >
-                📞 +91 96373 24922
+                📞 +91 90969 00576
               </a>
             </div>
+
+            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8 text-sm text-white/85">
+              <span>✅ Up to ₹78,000 Subsidy</span>
+              <span>✅ 25-Year Panel Warranty</span>
+              <span>✅ Easy EMI Options</span>
+            </div>
+          </div>
+
+          <div id="quote" className="scroll-mt-24">
+            <QuoteForm />
+          </div>
           </div>
         </div>
 
@@ -155,12 +198,12 @@ export default function Home() {
           <p className="section-subtitle">We make going solar simple, affordable, and rewarding</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: '🏆', title: 'Premium Brands',     desc: "Authorized dealer of India's top 3 solar brands – Waaree, Adani & Tata with full manufacturer warranty." },
+              { icon: '🏆', title: 'Top Brands',         desc: "We work with India's leading solar brands – Waaree, Adani, Tata, Sudarshan Saur, Vikram Solar & more – with full manufacturer warranty." },
               { icon: '💰', title: 'Subsidy Assistance', desc: 'We handle all government subsidy paperwork under PM Surya Ghar Yojana – saving you up to ₹78,000.' },
-              { icon: '⚡', title: 'Expert Installation',desc: 'Certified engineers with 10+ years of experience ensure safe, efficient, and clean installation.' },
+              { icon: '⚡', title: 'Expert Installation',desc: 'Our experienced solar team ensures safe, efficient, and clean installation.' },
               { icon: '🔧', title: 'AMC Support',        desc: 'Annual Maintenance Contracts available for worry-free operation of your solar system for years.' },
               { icon: '📊', title: 'Free Site Survey',   desc: 'Our experts visit your site, assess rooftop potential, and provide a detailed proposal at no cost.' },
-              { icon: '🌱', title: 'Eco Friendly',       desc: 'Every installation helps reduce carbon footprint. Join 500+ Pune families going green with us.' },
+              { icon: '🌱', title: 'Eco Friendly',       desc: 'Every installation helps reduce carbon footprint. Join 100+ Pune families going green with us.' },
             ].map((item, i) => (
               <div key={i} className="card p-6 text-left">
                 <div className="text-4xl mb-4">{item.icon}</div>
@@ -172,15 +215,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── How It Works ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="section-title">How It Works</h2>
+          <p className="section-subtitle">From enquiry to free electricity in 5 simple steps</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {steps.map((s, i) => (
+              <div key={i} className="relative card p-6">
+                <div
+                  className="absolute top-3 left-3 w-7 h-7 rounded-full text-xs font-bold text-white flex items-center justify-center"
+                  style={{ background: '#F5A623' }}
+                >
+                  {i + 1}
+                </div>
+                <div className="text-4xl mb-3">{s.icon}</div>
+                <h3 className="font-bold mb-2" style={{ color: '#1E5C8E' }}>{s.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Savings Calculator ── */}
+      <SavingsCalculator />
+
+      {/* ── Govt. Bank Solar Loans ── */}
+      <SolarLoans />
+
       {/* ── Products Preview ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="section-title">Our Solar Brands</h2>
-          <p className="section-subtitle">We partner with India's most trusted solar manufacturers</p>
+          <h2 className="section-title">Brands We Work With</h2>
+          <p className="section-subtitle">We install panels from India's most trusted solar manufacturers</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             {[
               { brand: 'Waaree', bg: 'linear-gradient(135deg,#1E5C8E,#174D78)', emoji: '🔵', tagline: "India's Largest Solar Manufacturer",  efficiency: 'Up to 22.5%' },
-              { brand: 'Adani',  bg: 'linear-gradient(135deg,#6B8E23,#5A7A1E)', emoji: '🟢', tagline: 'Trusted by Millions Across India',     efficiency: 'Up to 21.8%' },
+              { brand: 'Adani',  bg: 'linear-gradient(135deg,#1A8BD4,#1A4E9C)', emoji: '🟢', tagline: 'Trusted by Millions Across India',     efficiency: 'Up to 21.8%' },
               { brand: 'Tata',   bg: 'linear-gradient(135deg,#F5A623,#C97D08)', emoji: '🟡', tagline: 'Premium Quality, Proven Reliability',  efficiency: 'Up to 21.3%' },
             ].map((p, i) => (
               <div key={i} className="card group cursor-pointer">
@@ -192,12 +264,13 @@ export default function Home() {
                   <p className="text-gray-500 text-sm mb-4">{p.tagline}</p>
                   <div className="flex justify-between text-sm">
                     <span className="px-3 py-1 rounded-full font-medium text-xs" style={{ background: '#EBF4FB', color: '#1E5C8E' }}>⚡ {p.efficiency}</span>
-                    <span className="px-3 py-1 rounded-full font-medium text-xs" style={{ background: '#F4F7EC', color: '#6B8E23' }}>🛡 25 Years</span>
+                    <span className="px-3 py-1 rounded-full font-medium text-xs" style={{ background: '#E6F4FC', color: '#1A8BD4' }}>🛡 25 Years</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          <p className="text-gray-500 mb-8">Also available: <strong>Sudarshan Saur</strong>, <strong>Vikram Solar</strong> &amp; more</p>
           <Link to="/products" className="btn-secondary inline-block">View All Products →</Link>
         </div>
       </section>
@@ -236,6 +309,7 @@ export default function Home() {
           </div>
           <div className="space-y-3">
             {faqs.map((faq, i) => <FAQItem key={i} q={faq.q} a={faq.a} />)}
+            <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
           </div>
         </div>
       </section>
@@ -247,11 +321,11 @@ export default function Home() {
           <p className="text-white/90 text-lg mb-8">Get a free site survey and customised quote today. No obligation, no pressure.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="tel:9637324922"
+              href="tel:9096900576"
               className="font-bold px-8 py-3 rounded-lg shadow-lg transition-colors"
               style={{ background: '#1E5C8E', color: '#fff' }}
             >
-              📞 Call Now: +91 96373 24922
+              📞 Call Now: +91 90969 00576
             </a>
             <Link
               to="/about"

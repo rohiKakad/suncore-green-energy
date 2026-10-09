@@ -33,24 +33,15 @@ export default {
           800: '#7D4B03',
           900: '#543202',
         },
-        // Olive green from "Green Energy" text & ground arc
-        olive: {
-          50:  '#F4F7EC',
-          100: '#E2EBC8',
-          200: '#C5D791',
-          300: '#A8C35A',
-          400: '#7FA832',
-          500: '#6B8E23',   // exact "Green Energy" olive
-          600: '#5A7A1E',
-          700: '#476018',
-          800: '#344712',
-          900: '#222E0B',
-        },
-        // Steel blue from solar panel
+        // Solar-tile blues from the logo panel (light top → deep bottom)
         panel: {
-          400: '#4A7FA8',
-          500: '#2D5F8A',   // solar panel blue
-          600: '#1E4A6E',
+          50:  '#E6F4FC',
+          100: '#C2E4F7',
+          300: '#5FBEEC',
+          400: '#29A6E4',
+          500: '#1A8BD4',   // mid tile blue
+          600: '#1A6BB8',
+          700: '#1A4E9C',   // deepest tile blue
         },
       },
       fontFamily: {

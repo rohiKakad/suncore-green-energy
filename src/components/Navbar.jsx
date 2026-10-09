@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Logo from './Logo'
+import { PHONE_TEL } from '../contact'
 
 const navLinks = [
   { name: 'Home',     path: '/' },
@@ -8,6 +9,15 @@ const navLinks = [
   { name: 'About Us', path: '/about' },
   { name: 'Career',   path: '/career' },
 ]
+
+// Phones can dial directly; on computers a tel: link usually does nothing, so open the quote form instead
+const isPhone = typeof navigator !== 'undefined' && /Android|iPhone|iPod|Mobile/i.test(navigator.userAgent)
+
+function QuoteButton({ className }) {
+  return isPhone
+    ? <a href={PHONE_TEL} className={className}>📞 Call for Free Quote</a>
+    : <Link to="/#quote" className={className}>Get Free Quote</Link>
+}
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -24,7 +34,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`print:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
       }`}
     >
@@ -47,12 +57,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="tel:9637324922"
-              className="ml-4 btn-primary text-sm py-2 px-5"
-            >
-              📞 Free Quote
-            </a>
+            <QuoteButton className="ml-4 btn-primary text-sm py-2 px-5" />
           </nav>
 
           {/* Mobile hamburger */}
@@ -89,12 +94,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="tel:9637324922"
-              className="block text-center btn-primary mt-2"
-            >
-              📞 Get Free Quote
-            </a>
+            <QuoteButton className="block text-center btn-primary mt-2" />
           </div>
         </div>
       )}

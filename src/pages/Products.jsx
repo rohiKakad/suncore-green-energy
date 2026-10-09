@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useSeo } from '../seo'
 
 const brands = [
   {
@@ -11,11 +13,13 @@ const brands = [
     textColor: '#1E5C8E',
     border: '#C8E0F4',
     emoji: '🔵',
-    products: [
-      { name: 'Waaree Mono PERC 400W', price: '₹12,000', efficiency: '20.8%', warranty: '25 Years', type: 'Mono PERC', best: true  },
-      { name: 'Waaree Bifacial 450W',  price: '₹15,500', efficiency: '22.5%', warranty: '25 Years', type: 'Bifacial',      best: false },
-      { name: 'Waaree Poly 330W',      price: '₹9,500',  efficiency: '17.2%', warranty: '25 Years', type: 'Polycrystalline',best: false },
-      { name: 'Waaree HJT 500W',       price: '₹19,000', efficiency: '22.8%', warranty: '30 Years', type: 'HJT',           best: false },
+    specs: [
+      { icon: '🔬', label: 'Technology',    value: 'TOPCon & Mono PERC, Bifacial options' },
+      { icon: '⚡', label: 'Power Range',   value: '540 – 590 Wp per panel' },
+      { icon: '📈', label: 'Efficiency',    value: 'Up to 22.8%' },
+      { icon: '🛡️', label: 'Warranty',      value: '12 yr product · 30 yr performance' },
+      { icon: '✅', label: 'Certification', value: 'DCR & ALMM listed – subsidy eligible' },
+      { icon: '🌦️', label: 'Durability',    value: 'Low degradation, built for Indian heat & monsoon' },
     ],
   },
   {
@@ -23,16 +27,18 @@ const brands = [
     name: 'Adani',
     tagline: 'Trusted by Millions Across India',
     description: "Adani Solar is part of the Adani Group, one of India's largest conglomerates. Their panels are known for consistent performance and excellent after-sales support.",
-    activeBg: 'linear-gradient(135deg,#6B8E23,#3A5012)',
-    lightBg: '#F4F7EC',
-    textColor: '#6B8E23',
+    activeBg: 'linear-gradient(135deg,#1A8BD4,#1A4E9C)',
+    lightBg: '#E6F4FC',
+    textColor: '#1A8BD4',
     border: '#C5D791',
     emoji: '🟢',
-    products: [
-      { name: 'Adani Mono PERC 390W', price: '₹11,500', efficiency: '20.2%', warranty: '25 Years', type: 'Mono PERC',     best: true  },
-      { name: 'Adani Bifacial 440W',  price: '₹14,800', efficiency: '21.8%', warranty: '25 Years', type: 'Bifacial',      best: false },
-      { name: 'Adani Poly 320W',      price: '₹9,000',  efficiency: '16.8%', warranty: '25 Years', type: 'Polycrystalline',best: false },
-      { name: 'Adani TopCon 480W',    price: '₹17,500', efficiency: '22.1%', warranty: '30 Years', type: 'TopCon',        best: false },
+    specs: [
+      { icon: '🔬', label: 'Technology',    value: 'TOPCon & Mono PERC, Bifacial options' },
+      { icon: '⚡', label: 'Power Range',   value: '540 – 585 Wp per panel' },
+      { icon: '📈', label: 'Efficiency',    value: 'Up to 22.5%' },
+      { icon: '🛡️', label: 'Warranty',      value: '12 yr product · 30 yr performance' },
+      { icon: '✅', label: 'Certification', value: 'DCR & ALMM listed – subsidy eligible' },
+      { icon: '🏭', label: 'Manufacturing', value: 'Fully integrated Indian production' },
     ],
   },
   {
@@ -45,23 +51,66 @@ const brands = [
     textColor: '#C97D08',
     border: '#FDE68A',
     emoji: '🟡',
-    products: [
-      { name: 'Tata Mono PERC 380W', price: '₹13,000', efficiency: '19.8%', warranty: '25 Years', type: 'Mono PERC',     best: true  },
-      { name: 'Tata Bifacial 430W',  price: '₹16,000', efficiency: '21.3%', warranty: '25 Years', type: 'Bifacial',      best: false },
-      { name: 'Tata Poly 310W',      price: '₹9,200',  efficiency: '16.5%', warranty: '25 Years', type: 'Polycrystalline',best: false },
-      { name: 'Tata Premium 460W',   price: '₹18,000', efficiency: '21.8%', warranty: '30 Years', type: 'Premium',       best: false },
+    specs: [
+      { icon: '🔬', label: 'Technology',    value: 'Mono PERC & TOPCon, Bifacial options' },
+      { icon: '⚡', label: 'Power Range',   value: '540 – 580 Wp per panel' },
+      { icon: '📈', label: 'Efficiency',    value: 'Up to 22%' },
+      { icon: '🛡️', label: 'Warranty',      value: '10–12 yr product · 25–30 yr performance' },
+      { icon: '✅', label: 'Certification', value: 'DCR & ALMM listed – subsidy eligible' },
+      { icon: '🤝', label: 'Support',       value: 'Nationwide service network' },
     ],
   },
 ]
 
 const systemPackages = [
-  { size: '1 kW',  area: '~10 sq ft',  units: '4–5 units/day',   price: '₹65,000',   subsidy: '₹30,000',    ideal: 'Small apartment / 2–3 fans, lights' },
-  { size: '3 kW',  area: '~30 sq ft',  units: '12–15 units/day', price: '₹1,80,000', subsidy: '₹78,000',    ideal: 'Medium home / AC + appliances' },
-  { size: '5 kW',  area: '~50 sq ft',  units: '20–25 units/day', price: '₹2,80,000', subsidy: '₹78,000',    ideal: 'Large home / multiple ACs' },
+  { size: '1 kW',  area: '~10 sq ft',  units: '4–5 units/day',   price: '₹75,000',   subsidy: '₹30,000',    ideal: 'Small apartment / 2–3 fans, lights' },
+  { size: '3 kW',  area: '~30 sq ft',  units: '12–15 units/day', price: '₹2,10,000', subsidy: '₹78,000',    ideal: 'Medium home / AC + appliances' },
+  { size: '5 kW',  area: '~50 sq ft',  units: '20–25 units/day', price: '₹3,10,000', subsidy: '₹78,000',    ideal: 'Large home / multiple ACs' },
   { size: '10 kW', area: '~100 sq ft', units: '40–50 units/day', price: '₹5,20,000', subsidy: 'Commercial', ideal: 'Small business / office' },
 ]
 
+// Our installation photos – image files live in public/installations/.
+// Add `location: 'Baner, Pune'` etc. to show a location under the title.
+const installations = [
+  { src: '/installations/install-1.png', title: 'Elevated Rooftop Structure – Residential' },
+  { src: '/installations/install-2.png', title: 'Industrial Shed Rooftop' },
+  { src: '/installations/install-3.png', title: 'High-Rise GI Structure – Terrace' },
+  { src: '/installations/install-4.png', title: 'Commercial Metal Shed Rooftop' },
+]
+
+function InstallationPhoto({ src, title, location }) {
+  const [failed, setFailed] = useState(false)
+  return (
+    <div className="card relative group h-64">
+      {failed ? (
+        <div className="w-full h-full flex flex-col items-center justify-center text-center p-6"
+          style={{ background: 'linear-gradient(135deg,#EBF4FB,#F4F7EC)' }}>
+          <span className="text-5xl mb-2">☀️</span>
+          <span className="text-sm text-gray-500">Photo coming soon</span>
+        </div>
+      ) : (
+        <img
+          src={src}
+          alt={`${title} solar installation by Suncore Green Energy`}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      )}
+      <div className="absolute bottom-0 left-0 right-0 p-4 text-white" style={{ background: 'linear-gradient(transparent, rgba(12,46,72,0.85))' }}>
+        <div className="font-semibold text-sm">{title}</div>
+        {location && <div className="text-xs text-white/80">📍 {location}</div>}
+      </div>
+    </div>
+  )
+}
+
 export default function Products() {
+  useSeo({
+    title: 'Solar Panels & System Prices – 1kW to 10kW | Suncore Green Energy',
+    description: 'Waaree, Adani & Tata TOPCon and Mono PERC solar panels. Complete 1kW, 3kW, 5kW & 10kW rooftop solar packages in Pune with subsidy support.',
+    path: '/products',
+  })
   const [activeTab, setActiveTab] = useState('waaree')
   const ab = brands.find(b => b.id === activeTab)
 
@@ -73,7 +122,7 @@ export default function Products() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Our Solar Products</h1>
           <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-            Premium solar panels from India's top 3 manufacturers. All products come with manufacturer warranty and professional installation.
+            Solar panels from India's leading brands – Waaree, Adani, Tata, Sudarshan Saur, Vikram Solar &amp; more. All products come with manufacturer warranty and professional installation.
           </p>
         </div>
       </section>
@@ -83,7 +132,7 @@ export default function Products() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="section-title">Choose Your Brand</h2>
-            <p className="section-subtitle">All brands are authorized and come with full manufacturer support</p>
+            <p className="section-subtitle">All panels come with full manufacturer warranty. Sudarshan Saur, Vikram Solar &amp; other brands available on request.</p>
           </div>
 
           {/* Tabs */}
@@ -116,35 +165,27 @@ export default function Products() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ab.products.map((product, i) => (
-              <div key={i} className={`card relative ${product.best ? 'ring-2' : ''}`} style={product.best ? { '--tw-ring-color': '#F5A623' } : {}}>
-                {product.best && (
-                  <div className="absolute top-3 right-3 text-white text-xs font-bold px-2 py-1 rounded-full" style={{ background: '#F5A623' }}>
-                    ⭐ Best Seller
-                  </div>
-                )}
-                <div className="p-8 flex items-center justify-center" style={{ background: ab.activeBg }}>
-                  <span className="text-5xl">{ab.emoji}</span>
+          {/* Panel Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {ab.specs.map((spec, i) => (
+              <div key={i} className="card p-6 flex items-start gap-4">
+                <div className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center text-2xl" style={{ background: ab.lightBg }}>
+                  {spec.icon}
                 </div>
-                <div className="p-5">
-                  <h4 className="font-bold text-gray-800 mb-1 text-sm">{product.name}</h4>
-                  <div className="text-2xl font-extrabold mb-3" style={{ color: '#1E5C8E' }}>{product.price}</div>
-                  <div className="space-y-1 text-xs text-gray-500 mb-4">
-                    <div className="flex justify-between"><span>Type</span><span className="font-medium text-gray-700">{product.type}</span></div>
-                    <div className="flex justify-between"><span>Efficiency</span><span className="font-medium" style={{ color: '#6B8E23' }}>{product.efficiency}</span></div>
-                    <div className="flex justify-between"><span>Warranty</span><span className="font-medium text-gray-700">{product.warranty}</span></div>
-                  </div>
-                  <a href="tel:9637324922" className="block text-center text-white text-sm font-semibold py-2 rounded-lg transition-colors" style={{ background: '#F5A623' }}
-                    onMouseEnter={e => e.currentTarget.style.background='#E8960F'}
-                    onMouseLeave={e => e.currentTarget.style.background='#F5A623'}
-                  >
-                    Get Quote
-                  </a>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: ab.textColor }}>{spec.label}</div>
+                  <div className="font-bold text-gray-800">{spec.value}</div>
                 </div>
               </div>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/#quote" className="inline-block text-white font-semibold px-8 py-3 rounded-lg transition-colors" style={{ background: '#F5A623' }}
+              onMouseEnter={e => e.currentTarget.style.background='#E8960F'}
+              onMouseLeave={e => e.currentTarget.style.background='#F5A623'}
+            >
+              Get a Free Quote
+            </Link>
           </div>
         </div>
       </section>
@@ -168,18 +209,31 @@ export default function Products() {
                 </div>
                 <div className="border-t pt-4">
                   <div className="text-2xl font-bold text-gray-800">{pkg.price}</div>
-                  <div className="text-xs font-medium" style={{ color: '#6B8E23' }}>Subsidy: {pkg.subsidy}</div>
+                  <div className="text-xs font-medium" style={{ color: '#1A8BD4' }}>Subsidy: {pkg.subsidy}</div>
                 </div>
-                <a href="tel:9637324922" className="mt-4 block text-white text-sm font-semibold py-2 rounded-lg transition-colors" style={{ background: '#1E5C8E' }}
+                <Link to="/#quote" className="mt-4 block text-white text-sm font-semibold py-2 rounded-lg transition-colors" style={{ background: '#1E5C8E' }}
                   onMouseEnter={e => e.currentTarget.style.background='#174D78'}
                   onMouseLeave={e => e.currentTarget.style.background='#1E5C8E'}
                 >
                   Enquire Now
-                </a>
+                </Link>
               </div>
             ))}
           </div>
           <p className="text-center text-gray-400 text-sm mt-6">* Prices are indicative. Final price depends on site conditions and brand selection. Subsidy subject to government scheme availability.</p>
+        </div>
+      </section>
+
+      {/* Installation Gallery */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="section-title">Our Recent Installations</h2>
+            <p className="section-subtitle">Real rooftop solar projects completed by the Suncore team</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {installations.map(photo => <InstallationPhoto key={photo.src} {...photo} />)}
+          </div>
         </div>
       </section>
 
@@ -188,8 +242,8 @@ export default function Products() {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Not Sure Which System to Choose?</h2>
           <p className="text-white/90 mb-8">Our solar experts will assess your energy needs and recommend the perfect system for your home or business.</p>
-          <a href="tel:9637324922" className="font-bold px-8 py-3 rounded-lg shadow-lg inline-block transition-colors" style={{ background: '#fff', color: '#1E5C8E' }}>
-            📞 Call +91 96373 24922 for Free Consultation
+          <a href="tel:9096900576" className="font-bold px-8 py-3 rounded-lg shadow-lg inline-block transition-colors" style={{ background: '#fff', color: '#1E5C8E' }}>
+            📞 Call +91 90969 00576 for Free Consultation
           </a>
         </div>
       </section>

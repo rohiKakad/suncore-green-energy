@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /career/apply
+
+Sitemap: https://suncoregreen.com/sitemap.xml
